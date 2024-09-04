@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kebo_flujo/components/my_button.dart';
 import 'package:kebo_flujo/components/my_text_field.dart';
+import 'package:kebo_flujo/components/square_tile.dart';
 import 'package:kebo_flujo/config/theme/app_theme.dart';
 
 class LoginPage extends StatelessWidget {
@@ -28,7 +29,7 @@ class LoginPage extends StatelessWidget {
                 height: 100,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
 
@@ -36,11 +37,11 @@ class LoginPage extends StatelessWidget {
             Text(
               'welcome back you/ve been missided',
               style: TextStyle(
-                  color: colorThemes[5],
+                  color: colorThemes[1],
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             //username text field
@@ -50,7 +51,7 @@ class LoginPage extends StatelessWidget {
               obscureText: false,
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -60,7 +61,7 @@ class LoginPage extends StatelessWidget {
               hinText: 'password',
               obscureText: true,
             ),
-            SizedBox(
+            const SizedBox(
               height: 14,
             ),
             //forgot password
@@ -76,17 +77,73 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             //sing in button
             MyButton(
               onTap: signUserIn,
             ),
-            // or contunue with
-            //google + aple sing buttons
-            //not a member register now
 
+            const SizedBox(
+              height: 50,
+            ),
+
+            // or contunue with
+            Row(
+              children: [
+                Expanded(
+                  child: Divider(
+                    thickness: 0.5,
+                    color: colorThemes[1],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(7),
+                  child: Text(
+                    'or continue with',
+                    style: TextStyle(color: colorThemes[3]),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    thickness: 0.5,
+                    color: colorThemes[1],
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 30),
+            //google + apple sign in buttons
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [SquareTile(imagePath: 'lib/images/google.png')],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+
+            /////
+
+            //////
+            ///
+
+            //not a member register now
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Not a member?'),
+                const SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  'Register now ',
+                  style: TextStyle(
+                      color: colorThemes[5], fontWeight: FontWeight.bold),
+                )
+              ],
+            )
             // ... resto de los widgets ...
           ]),
         ),
