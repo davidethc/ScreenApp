@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719487465582",
+    "project_id": "loginkebo",
+    "storage_bucket": "loginkebo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719487465582:android:e74fbb0c3068024db0ce7f",
+        "android_client_info": {
+          "package_name": "com.example.kebo_flujo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLVDOQnue0veTG97mvuOPKHW88oKC5yrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,22 +1,61 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kebo_flujo/components/my_button.dart';
 import 'package:kebo_flujo/components/my_text_field.dart';
 import 'package:kebo_flujo/components/square_tile.dart';
 import 'package:kebo_flujo/config/theme/app_theme.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    //text edit controller
     final userNameController = TextEditingController();
     final passwordController = TextEditingController();
     //SING IN METODO
-    void signUserIn() {}
+    void signUserIn() async {
+      //show loading circle
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+
+      //try sign in
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: userNameController.text,
+          password: passwordController.text,
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        } else {
+          print('Error: ${e.message}');
+        }
+      } catch (e) {
+        print('An unexpected error occurred: $e');
+      }
+
+      //remove loading circle
+      Navigator.pop(context);
+    }
 
     return Scaffold(
-      backgroundColor: colorThemes[0],
+      backgroundColor: colorThemes[4],
       body: SafeArea(
         child: Center(
           child: Column(children: [
