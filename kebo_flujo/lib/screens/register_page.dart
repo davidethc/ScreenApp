@@ -54,10 +54,15 @@ class _RegisterPageState extends State<RegisterPage> {
       }
 
       try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: userNameController.text,
-          password: passwordController.text,
-        );
+        //check if password is confirmed
+        if (passwordController.text == confirmPasswordController.text) {
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: userNameController.text,
+            password: passwordController.text,
+          );
+        } else {
+          showErrorMessage('Las contraseñas no coinciden');
+        }
         // cerrar el círculo de carga
         Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
