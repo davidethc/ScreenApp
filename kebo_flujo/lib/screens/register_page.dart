@@ -6,23 +6,26 @@ import 'package:kebo_flujo/components/my_text_field.dart';
 import 'package:kebo_flujo/components/square_tile.dart';
 import 'package:kebo_flujo/config/theme/app_theme.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     //text edit controller
     final userNameController = TextEditingController();
     final passwordController = TextEditingController();
-    //SING IN METODO
-    void signUserIn() async {
+    // Añade este nuevo controlador
+    final confirmPasswordController = TextEditingController();
+
+    //SING uP METODO
+    void signUserUp() async {
       // mostrar círculo de carga
       showDialog(
         context: context,
@@ -50,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
 
-      //try creating the user
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: userNameController.text,
@@ -83,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 10,
               ),
 
               //welcome back,you've been missided
@@ -111,11 +113,21 @@ class _LoginPageState extends State<LoginPage> {
               //password text field
               MyTextField(
                 controller: passwordController,
-                hinText: 'password',
+                hinText: 'contraseña',
                 obscureText: true,
               ),
               const SizedBox(
-                height: 14,
+                height: 10,
+              ),
+              //confirm password text field
+              MyTextField(
+                controller:
+                    confirmPasswordController, // Usa el nuevo controlador aquí
+                hinText: 'confirmar contraseña',
+                obscureText: true,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               //forgot password
               Padding(
@@ -135,12 +147,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               //sing in button
               MyButton(
-                text: 'Sign In',
-                onTap: signUserIn,
+                onTap: signUserUp,
+                text: 'Registrarse',
               ),
 
               const SizedBox(
-                height: 50,
+                height: 10,
               ),
 
               // or contunue with
@@ -178,23 +190,18 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
 
-              /////
-
-              //////
-              ///
-
               //not a member register now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Not a member?'),
+                  const Text('Already have an account?'),
                   const SizedBox(
                     width: 4,
                   ),
                   GestureDetector(
                     onTap: widget.onTap,
                     child: Text(
-                      'Register now ',
+                      'Login now ',
                       style: TextStyle(
                           color: colorThemes[5], fontWeight: FontWeight.bold),
                     ),
