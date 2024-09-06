@@ -5,6 +5,7 @@ import 'package:kebo_flujo/components/my_button.dart';
 import 'package:kebo_flujo/components/my_text_field.dart';
 import 'package:kebo_flujo/components/square_tile.dart';
 import 'package:kebo_flujo/config/theme/app_theme.dart';
+import 'package:kebo_flujo/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
-      backgroundColor: colorThemes[4],
+      backgroundColor: Color(0xFFE6D8FF),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -170,9 +171,14 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 30),
               //google + apple sign in buttons
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [SquareTile(imagePath: 'lib/images/google.png')],
+                children: [
+                  SquareTile(
+                    imagePath: 'lib/images/google.png',
+                    onTap: () => AuthService().signInWithGoogle(),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 20,

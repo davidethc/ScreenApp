@@ -5,6 +5,7 @@ import 'package:kebo_flujo/components/my_button.dart';
 import 'package:kebo_flujo/components/my_text_field.dart';
 import 'package:kebo_flujo/components/square_tile.dart';
 import 'package:kebo_flujo/config/theme/app_theme.dart';
+import 'package:kebo_flujo/services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -187,9 +188,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 30),
               //google + apple sign in buttons
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [SquareTile(imagePath: 'lib/images/google.png')],
+                children: [
+                  SquareTile(
+                    imagePath: 'lib/images/google.png',
+                    onTap: () => AuthService().signInWithGoogle(),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 20,
