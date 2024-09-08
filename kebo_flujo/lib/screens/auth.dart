@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:kebo_flujo/screens/home_page.dart';
 import 'package:kebo_flujo/screens/login.dart';
 import 'package:kebo_flujo/screens/login_or_register.dart';
+import 'package:kebo_flujo/screens/pantalla_principal.dart';
+import 'package:kebo_flujo/screens/register_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -18,7 +20,7 @@ class AuthPage extends StatelessWidget {
           if (snapshot.hasData) {
             return HomePage();
           } else {
-            return LoginOrRegister();
+            return PantallaPrincipal();
           }
           //user is not logged in
         },
