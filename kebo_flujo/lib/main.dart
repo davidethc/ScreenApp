@@ -19,7 +19,7 @@ class keboApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme().theme(),
+      theme: AppTheme.theme(),
       home: AuthPage(),
     );
   }

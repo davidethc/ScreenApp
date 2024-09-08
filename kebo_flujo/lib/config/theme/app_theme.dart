@@ -12,7 +12,16 @@ const List<Color> colorThemes = [
 ];
 
 class AppTheme {
-  ThemeData theme() {
+  static ThemeData theme() {
     return ThemeData(useMaterial3: true, colorSchemeSeed: colorThemes[2]);
   }
+
+  static LinearGradient gradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFE6D8FF),
+      Color(0xFFB388FF),
+    ],
+  );
 }
