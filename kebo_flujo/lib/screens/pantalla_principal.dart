@@ -81,6 +81,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                     Container(
                       child: Column(
                         children: [
+                          SizedBox(height: 55),
                           _buildSocialButton(
                             onPressed: () {},
                             icon: Icons.apple,
@@ -105,7 +106,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                             backgroundColor: Colors.white,
                             textColor: Colors.black,
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 120),
                           //no miembro registrate ahora
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -142,44 +143,44 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
   }
 
   Widget _buildSocialButton({
-    required VoidCallback
-        onPressed, // Acción a realizar cuando se presiona el botón.
-    IconData? icon, // Ícono que se mostrará en el botón (opcional).
-    required String text, // Texto que se mostrará en el botón.
-    required Color backgroundColor, // Color de fondo del botón.
-    required Color textColor, // Color del texto del botón.
-    String?
-        imagePath, // Ruta de la imagen que se mostrará en lugar de un ícono (opcional).
+    required VoidCallback onPressed,
+    IconData? icon,
+    required String text,
+    required Color backgroundColor,
+    required Color textColor,
+    String? imagePath,
   }) {
-    return ElevatedButton(
-      // Acción a realizar al presionar el botón.
-      onPressed: onPressed,
-      // Estilo del botón.
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        minimumSize:
-            const Size(double.infinity, 52), // Tamaño mínimo del botón.
-        elevation: 0, // Sin sombra debajo del botón.
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(26), // Bordes redondeados.
-        ),
-      ),
-      child: Row(
-        // Organiza el contenido del botón en una fila.
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Si se proporciona un ícono, lo muestra.
-          if (icon != null)
-            Icon(icon, color: textColor)
-          // Si no hay ícono pero hay una imagen, muestra la imagen.
-          else if (imagePath != null)
-            Image.asset(imagePath, height: 24, width: 24),
-          const SizedBox(width: 8), // Espacio entre el ícono/imagen y el texto.
-          Text(
-            text,
-            style: TextStyle(color: textColor), // Estilo del texto.
+    return Container(
+      width: 312,
+      height: 44,
+      child: Opacity(
+        opacity: 1, // Nota: esto hará que el botón sea invisible
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor,
+            padding: EdgeInsets.fromLTRB(1, 1, 10, 1),
+            shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(16), // Todas las esquinas redondeadas
+              side: BorderSide(width: 1, color: Colors.transparent),
+            ),
           ),
-        ],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (icon != null)
+                Icon(icon, color: textColor)
+              else if (imagePath != null)
+                Image.asset(imagePath, height: 24, width: 24),
+              SizedBox(width: 10),
+              Text(
+                text,
+                style: TextStyle(color: textColor),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
