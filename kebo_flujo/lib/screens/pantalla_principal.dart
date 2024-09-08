@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kebo_flujo/config/theme/app_theme.dart';
+import 'package:kebo_flujo/services/auth_service.dart';
 
 class PantallaPrincipal extends StatefulWidget {
   const PantallaPrincipal({super.key});
@@ -73,10 +75,38 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                       textAlign: TextAlign.left,
                     ),
                     SizedBox(height: 16),
-                    //boton aple
 
-                    //boton googlw
-                    Container()
+                    //boton applw
+                    Container(
+                      child: Column(
+                        children: [
+                          _buildSocialButton(
+                            onPressed: () {},
+                            icon: Icons.apple,
+                            text: 'Continuar con Apple',
+                            backgroundColor: Colors.black,
+                            textColor: Colors.white,
+                          ),
+                          SizedBox(height: 16),
+                          _buildSocialButton(
+                            onPressed: () => AuthService().signInWithGoogle(),
+                            icon: Icons.g_mobiledata,
+                            text: 'Continuar con Google',
+                            backgroundColor: Colors.white,
+                            textColor: Colors.black,
+                          ),
+                          SizedBox(height: 16),
+                          //boton de email
+                          _buildSocialButton(
+                            onPressed: () {},
+                            icon: Icons.email,
+                            text: 'Continuar con Email',
+                            backgroundColor: Colors.white,
+                            textColor: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
                     // Aquí puedes agregar más texto o widgets si es necesario
                   ],
                 ),
@@ -89,5 +119,95 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
         //no a miembro registrate ahora
       ),
     );
+  }
+
+  Widget _buildSocialButton({
+    required VoidCallback
+        onPressed, // Acción a realizar cuando se presiona el botón.
+    IconData? icon, // Ícono que se mostrará en el botón (opcional).
+    required String text, // Texto que se mostrará en el botón.
+    required Color backgroundColor, // Color de fondo del botón.
+    required Color textColor, // Color del texto del botón.
+    String?
+        imagePath, // Ruta de la imagen que se mostrará en lugar de un ícono (opcional).
+  }) {
+    return ElevatedButton(
+      // Acción a realizar al presionar el botón.
+      onPressed: onPressed,
+      // Estilo del botón.
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        minimumSize:
+            const Size(double.infinity, 52), // Tamaño mínimo del botón.
+        elevation: 0, // Sin sombra debajo del botón.
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(26), // Bordes redondeados.
+        ),
+      ),
+      child: Row(
+        // Organiza el contenido del botón en una fila.
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Si se proporciona un ícono, lo muestra.
+          if (icon != null)
+            Icon(icon, color: textColor)
+          // Si no hay ícono pero hay una imagen, muestra la imagen.
+          else if (imagePath != null)
+            Image.asset(imagePath, height: 24, width: 24),
+          const SizedBox(width: 8), // Espacio entre el ícono/imagen y el texto.
+          Text(
+            text,
+            style: TextStyle(color: textColor), // Estilo del texto.
+          ),
+        ],
+      ),
+    );
+  }
+
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+  //SING IN METODO
+  void signUserIn() async {
+    // mostrar círculo de carga
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+    // mensaje de error para el usuario
+    void showErrorMessage(String message) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.deepPurple,
+            title: Center(
+              child: Text(
+                message,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    //try creating the user
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: userNameController.text,
+        password: passwordController.text,
+      );
+      // cerrar el círculo de carga
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // cerrar el círculo de carga
+      Navigator.pop(context);
+      // mostrar mensaje de error
+      showErrorMessage(e.code);
+    }
   }
 }
