@@ -4,7 +4,8 @@ import 'package:kebo_flujo/config/theme/app_theme.dart';
 import 'package:kebo_flujo/services/auth_service.dart';
 
 class PantallaPrincipal extends StatefulWidget {
-  const PantallaPrincipal({super.key});
+  final VoidCallback? onTap;
+  const PantallaPrincipal({super.key, this.onTap});
 
   @override
   State<PantallaPrincipal> createState() => _PantallaPrincipalState();
@@ -38,7 +39,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
               ),
             ),
             Positioned(
-              top: 250.23,
+              top: 220.23,
               left: 40.77,
               child: Container(
                 width: 273.18,
@@ -90,7 +91,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                           SizedBox(height: 16),
                           _buildSocialButton(
                             onPressed: () => AuthService().signInWithGoogle(),
-                            icon: Icons.g_mobiledata,
+                            imagePath: 'lib/images/google.png',
                             text: 'Continuar con Google',
                             backgroundColor: Colors.white,
                             textColor: Colors.black,
@@ -104,6 +105,26 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                             backgroundColor: Colors.white,
                             textColor: Colors.black,
                           ),
+                          SizedBox(height: 16),
+                          //no miembro registrate ahora
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Not a member?'),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              GestureDetector(
+                                onTap: widget.onTap,
+                                child: Text(
+                                  'Registrarse ahora',
+                                  style: TextStyle(
+                                      color: colorThemes[5],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -115,7 +136,6 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
           ],
         ),
 
-        //continual con email
         //no a miembro registrate ahora
       ),
     );
