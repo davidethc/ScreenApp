@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:kebo_flujo/components/my_button.dart';
 import 'package:kebo_flujo/components/my_text_field.dart';
@@ -186,11 +186,6 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 20,
                 ),
-
-                /////
-
-                //////
-                ///
 
                 //not a member register now
                 Row(

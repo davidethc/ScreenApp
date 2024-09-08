@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kebo_flujo/screens/login.dart';
+import 'package:kebo_flujo/screens/pantalla_principal.dart';
 import 'package:kebo_flujo/screens/register_page.dart';
 
 class LoginOrRegister extends StatefulWidget {
@@ -22,7 +23,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
   @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
-      return LoginPage(onTap: togglePages);
+      return PantallaPrincipal(onTap: togglePages);
     } else {
       return RegisterPage(onTap: togglePages);
     }
