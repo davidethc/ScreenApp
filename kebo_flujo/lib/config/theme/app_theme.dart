@@ -8,6 +8,7 @@ const List<Color> colorThemes = [
   Colors.black,
   Colors.green,
   Colors.cyanAccent,
+  Color.fromARGB(255, 189, 143, 197),
   // ... otros colores si los hay ...
 ];
 

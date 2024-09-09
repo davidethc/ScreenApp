@@ -20,13 +20,20 @@ class MyTextField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colorThemes[1])),
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: colorThemes[6])),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colorThemes[2])),
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: colorThemes[6])),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: colorThemes[6])),
             fillColor: colorThemes[1].withOpacity(0.5),
             filled: true,
             hintText: hinText,
-            hintStyle: TextStyle(color: colorThemes[3].withOpacity(0.3))),
+            hintStyle: TextStyle(
+              color: colorThemes[3].withOpacity(0.3),
+            )),
       ),
     );
   }

@@ -1,11 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kebo_flujo/screens/home_page.dart';
-import 'package:kebo_flujo/screens/login.dart';
-import 'package:kebo_flujo/screens/login_or_register.dart';
+
 import 'package:kebo_flujo/screens/pantalla_principal.dart';
-import 'package:kebo_flujo/screens/register_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -16,13 +13,16 @@ class AuthPage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          //user is logged in
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasData) {
+            // Usuario ha iniciado sesión
             return HomePage();
           } else {
-            return PantallaPrincipal();
+            // Usuario no ha iniciado sesión
+            return const PantallaPrincipal();
           }
-          //user is not logged in
+          //usuario inicia sesion con email
         },
       ),
     );

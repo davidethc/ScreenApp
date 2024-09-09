@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kebo_flujo/config/theme/app_theme.dart';
+import 'package:kebo_flujo/screens/login_or_register.dart';
 import 'package:kebo_flujo/services/auth_service.dart';
 
 class PantallaPrincipal extends StatefulWidget {
@@ -14,6 +15,53 @@ class PantallaPrincipal extends StatefulWidget {
 class _PantallaPrincipalState extends State<PantallaPrincipal> {
   @override
   Widget build(BuildContext context) {
+    final userNameController = TextEditingController();
+    final passwordController = TextEditingController();
+    //SING IN METODO
+    void signUserIn() async {
+      // mostrar círculo de carga
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+      // mensaje de error para el usuario
+      void showErrorMessage(String message) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.deepPurple,
+              title: Center(
+                child: Text(
+                  message,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            );
+          },
+        );
+      }
+
+      //try creating the user
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: userNameController.text,
+          password: passwordController.text,
+        );
+        // cerrar el círculo de carga
+        Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        // cerrar el círculo de carga
+        Navigator.pop(context);
+        // mostrar mensaje de error
+        showErrorMessage(e.code);
+      }
+    }
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -100,7 +148,14 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                           SizedBox(height: 16),
                           //boton de email
                           _buildSocialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LoginOrRegister()),
+                              );
+                            },
                             icon: Icons.email,
                             text: 'Continuar con Email',
                             backgroundColor: Colors.white,
@@ -111,21 +166,20 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text('Not a member?'),
+                              const Text('No eres miembro?'),
                               const SizedBox(
                                 width: 4,
                               ),
                               GestureDetector(
                                 onTap: widget.onTap,
                                 child: Text(
-                                  'Registrarse ahora',
+                                  'Regístrate ahora ',
                                   style: TextStyle(
                                       color: colorThemes[5],
                                       fontWeight: FontWeight.bold),
                                 ),
                               )
                             ],
-                            //dddewqwe
                           )
                         ],
                       ),
@@ -184,52 +238,5 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
         ),
       ),
     );
-  }
-
-  final userNameController = TextEditingController();
-  final passwordController = TextEditingController();
-  //SING IN METODO
-  void signUserIn() async {
-    // mostrar círculo de carga
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-    // mensaje de error para el usuario
-    void showErrorMessage(String message) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.deepPurple,
-            title: Center(
-              child: Text(
-                message,
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
-          );
-        },
-      );
-    }
-
-    //try creating the user
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: userNameController.text,
-        password: passwordController.text,
-      );
-      // cerrar el círculo de carga
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      // cerrar el círculo de carga
-      Navigator.pop(context);
-      // mostrar mensaje de error
-      showErrorMessage(e.code);
-    }
   }
 }

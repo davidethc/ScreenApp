@@ -85,17 +85,23 @@ class _LoginPageState extends State<LoginPage> {
                     height: 100,
                   ),
                 ),
-                const SizedBox(
-                  height: 50,
-                ),
 
                 //welcome back,you've been missided
                 Text(
-                  'welcome back you/ve been missided',
+                  'Iniciar Sesión',
                   style: TextStyle(
-                      color: colorThemes[1],
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                    color: colorThemes[3].withOpacity(0.8),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 2,
+                        color: Colors.black.withOpacity(0.1),
+                        offset: Offset(1, 1),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 25,
@@ -103,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                 //username text field
                 MyTextField(
                   controller: userNameController,
-                  hinText: 'email',
+                  hinText: 'Correo electronico',
                   obscureText: false,
                 ),
 
@@ -114,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 //password text field
                 MyTextField(
                   controller: passwordController,
-                  hinText: 'password',
+                  hinText: 'Contraseña',
                   obscureText: true,
                 ),
                 const SizedBox(
@@ -127,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'Forgot Password',
+                        '¿Olvidaste tu contraseña?',
                         style:
                             TextStyle(color: colorThemes[3].withOpacity(0.9)),
                       ),
@@ -139,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 //sing in button
                 MyButton(
-                  text: 'Sign In',
+                  text: 'Iniciar Sesión',
                   onTap: signUserIn,
                 ),
 
@@ -159,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(7),
                       child: Text(
-                        'or continue with',
+                        'o continuar con',
                         style: TextStyle(color: colorThemes[3]),
                       ),
                     ),
@@ -196,14 +202,14 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Not a member?'),
+                    const Text('¿No tienes una cuenta?'),
                     const SizedBox(
                       width: 4,
                     ),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        'Register now ',
+                        'Registrate ahora',
                         style: TextStyle(
                             color: colorThemes[5], fontWeight: FontWeight.bold),
                       ),
